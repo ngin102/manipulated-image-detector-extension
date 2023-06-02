@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "Manipulated Image Detector",
+  "version": "1.0",
+  "permissions": ["activeTab"],
+  "browser_action": {
+    "default_popup": "main.html"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; object-src 'self'"
+}

@@ -1,0 +1,18 @@
+@import url('https://fonts.cdnfonts.com/css/nexa-bold');
+
+*
+{
+    font-family: "Nexa", sans-serif;
+}
+
+body 
+{
+    width: 450px;
+    text-align: center;
+}
+
+.title
+{
+    font-size: 10rem;
+    font-weight: bold;
+}
