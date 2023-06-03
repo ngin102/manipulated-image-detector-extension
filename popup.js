@@ -84,14 +84,12 @@ async function handleFileUpload(event) {
             resized_image.src = canvas.toDataURL("image/jpeg");
 
             const image_div = document.getElementById("uploaded_image");
-            const existing_image = image_div.querySelector("img");
+            
+            image_div.innerHTML = "";
 
             const prediction_div = document.getElementById("predictions");
             prediction_div.textContent = "Predicting authenticity...";
 
-            if (existing_image) {
-                image_div.removeChild(existing_image);
-            }
 
             image_div.appendChild(resized_image);
 
@@ -104,6 +102,68 @@ async function handleFileUpload(event) {
     reader.readAsDataURL(file);
 }
 
+async function handleFileUploadFromMenu(file) {
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      const image_url = e.target.result;
+      const image_element = document.createElement("img");
+      image_element.src = image_url;
+  
+      // Wait for image to load before making predictions
+      image_element.onload = async function() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 256;
+        canvas.height = 256;
+        const context = canvas.getContext("2d");
+        context.drawImage(image_element, 0, 0, 256, 256);
+  
+        const resized_image = new Image();
+        resized_image.src = canvas.toDataURL("image/jpeg");
+  
+        const image_div = document.getElementById("uploaded_image");
+        image_div.innerHTML = "";
+
+  
+        const prediction_div = document.getElementById("predictions");
+        prediction_div.textContent = "Predicting authenticity...";
+
+  
+        image_div.appendChild(resized_image);
+  
+        await loadModelAndClassify(image_element);
+      };
+  
+      URL.revokeObjectURL(image_url);
+    };
+  
+    reader.readAsDataURL(file);
+  }
+  
+
 // Call handleFileUpload function when an image file is selected.
 const fileInput = document.getElementById("file-input");
 fileInput.addEventListener("change", handleFileUpload);
+
+// Add event listener for message event
+window.addEventListener('message', function(event) {
+    // Check if the message action is "uploadImage"
+    if (event.data && event.data.action === "uploadImage") {
+      // Process the message and perform the desired actions
+      const imageURL = event.data.imageURL;
+      console.log("Message received in popup:", imageURL);
+        // Extract the image file from the imageURL
+        fetch(imageURL)
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a File object from the image blob
+            const file = new File([blob], "selected_image.png", { type: "image/png" });
+
+            // Call the modified handleFileUpload function to upload the image
+            handleFileUploadFromMenu(file);
+        })
+        .catch(error => {
+            console.error("Error extracting image file:", error);
+        });
+    }
+  });
+  
