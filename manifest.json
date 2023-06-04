@@ -1,20 +1,25 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Manipulated Image Detector",
   "version": "1.0",
   "background": {
-    "scripts": ["background.js"],
-    "persistent": true
+    "service_worker": "background.js"
   },
   "permissions": [
     "activeTab",
     "contextMenus",
-    "tabs",
-    "windows"
+    "scripting"
   ],
-  "browser_action": {
+  "action": {
     "default_popup": "help.html"
   },
-  
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; object-src 'self'"
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["node_modules/@tensorflow/tfjs/dist/tf.fesm.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

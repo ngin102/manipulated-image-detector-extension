@@ -8,51 +8,41 @@ chrome.runtime.onInstalled.addListener(() => {
     });
     
     
+    // Declare a variable to store the reference to the popup window
     let popupWindowId = false;
-    
+
     // Listen for right-click menu item click event
     chrome.contextMenus.onClicked.addListener(function(clickData) {
-        if (clickData.menuItemId === "uploadImage") {
-          // Upload the image to the extension
-          const imageURL = clickData.srcUrl;
-            if (popupWindowId) {
-                // If the popup window is already open, refresh it
-                chrome.windows.update(popupWindowId, { focused: true }, function() {
-                    const views = chrome.extension.getViews({ windowId: popupWindowId });
-                    if (views.length > 0) {
-                        const popupWindow = views[0];
-                        popupWindow.postMessage({ action: "uploadImage", imageURL: clickData.srcUrl }, "*");
-                        console.log("Message sent", popupWindowId);
-                      }
-    
-                });
-    
-            } else {
-                chrome.windows.create({
-                    url: "popup.html",
-                    type: "popup",
-                    width: 460,
-                    height: 460
-                  }, function(window) {
-                    // Store the window ID for future reference
-                    popupWindowId = window.id;
-                  
-                    console.log("Window created.");
-                  
-                    // Wait for 40 seconds before sending the message
-                    setTimeout(function() {
-                      const views = chrome.extension.getViews({ windowId: popupWindowId });
-                      if (views.length > 0) {
-                        const popupWindow = views[0];
-                        popupWindow.postMessage({ action: "uploadImage", imageURL: clickData.srcUrl }, "*");
-                        console.log("Message sent after 2 seconds:", popupWindowId);
-                      }
-                    }, 2000);
-                  });
-            }
+      if (clickData.menuItemId === "uploadImage") {
+        // Upload the image to the extension
+        if (popupWindowId) {
+          // If the popup window is already open, refresh it
+          chrome.windows.update(popupWindowId, { focused: true }, function() {
+            chrome.runtime.sendMessage({ action: "uploadImage", imageURL: clickData.srcUrl });
+            console.log("Message sent to popup window");
+          });
+        } else {
+          // If the popup window is not open, create a new one
+          chrome.windows.create({
+            url: "popup.html",
+            type: "popup",
+            width: 460,
+            height: 460
+          }, function(window) {
+            // Store the window ID for future reference
+            popupWindowId = window.id;
+            console.log("Popup window created.");
+
+            // Wait for 2 seconds before sending the message
+            setTimeout(function() {
+              chrome.runtime.sendMessage({ action: "uploadImage", imageURL: clickData.srcUrl });
+              console.log("Message sent to popup window after 2 seconds");
+            }, 2000);
+          });
         }
+      }
     });
-    
+
     // Listen for the popup window to close
     chrome.windows.onRemoved.addListener(function(windowId) {
       if (windowId === popupWindowId) {
