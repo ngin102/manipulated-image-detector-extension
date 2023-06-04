@@ -2,7 +2,7 @@ chrome.runtime.onInstalled.addListener(() => {
     // Create the context menu item
         chrome.contextMenus.create({
             id: "uploadImage",
-            title: "Upload Image to Manipulated Image Detector",
+            title: "Predict Image Authenticity",
             contexts: ["image"],
         });
     });
@@ -31,8 +31,8 @@ chrome.runtime.onInstalled.addListener(() => {
                 chrome.windows.create({
                     url: "popup.html",
                     type: "popup",
-                    width: 450,
-                    height: 450
+                    width: 460,
+                    height: 460
                   }, function(window) {
                     // Store the window ID for future reference
                     popupWindowId = window.id;

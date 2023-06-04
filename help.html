@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Help</title>
+    
+    <link rel="stylesheet" href="help.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>How to Use the Extension</h1>
+      <p>
+        Secondary-click on an image from a webpage and select "Predict Image Authenticity" from the Context Menu.
+        A pop-up with the "Manipulated Image Detector" will open, the image will automatically be given to the
+        model, and the model will predict the authenticity of the image.
+      </p>
+
+      <p><a href="popup.html" target="_blank"> Click here to open the "Manipulated Image Detector" as a new tab of your browser.</a></p>
+    </div>
+
+    <div class="container">
+      <h1>How Does the Detector Work?</h1>
+      <p>
+        This Chrome extension is meant to be a companion to the <a href = "https://github.com/ngin102/manipulated-image-detector-and-recommender" target="_blank"> "Manipulated Image Detector and Recommender" Android application</a>.
+      </p>
+
+      <p>
+        It uses an on-device model that was built to detect whether an image has been manipulated or edited in any way.
+        The model is a custom convolutional neural network that was trained on 3938 authentic images and 3938 manipulated images from the <a href="https://www.kaggle.com/datasets/sophatvathana/casia-dataset" target="_blank"> CASIA2 dataset</a>.
+        The model, once fully trained, achieved an F1 score of ~87.3% when tested on another subset of images from the CASIA2 dataset it was not explicitly trained on.
+      </p>
+
+      <p>
+        Remember that all detections made by the model are, in fact, predictions.
+      </p>
+    </div>
+
+    <div class="container">
+      <h1>More</h1>
+      <p>
+        Have suggestions to improve this extension? <a href="mailto:nicholas.gin9@gmail.com">Click here to send feedback.</a>
+      </p>
+    
+      <p>
+        <a href = "https://github.com/ngin102/manipulated-image-detector-and-recommender">Click here for more information on the model used in this extension and the Android application.</a>
+      </p>
+    </div>
+
+    <p class = "footer">Copyright &#169 2023 Nicholas Gin</p>
+
+  </body>
+</html>

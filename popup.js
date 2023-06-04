@@ -45,7 +45,15 @@ async function classifyImage(imageElement, model) {
     const rescaled_values = output.map(value => (value * 100).toFixed(2));
     
     const predictionDiv = document.getElementById("predictions");
-    predictionDiv.textContent = rescaled_values[0];
+
+    if (rescaled_values[0] < 50)
+    {
+        predictionDiv.textContent = "Prediction: Likely Manipulated";
+    }
+    else
+    {
+        predictionDiv.textContent = "Prediction: Likely Authentic";
+    }
 
     return rescaled_values;
 }
@@ -53,10 +61,10 @@ async function classifyImage(imageElement, model) {
 // Load the JSON model and perform classification
 async function loadModelAndClassify(image_element) {
     const model = await tf.loadLayersModel("model.json");
-    console.log("Model loaded.");
+    console.log("Model loaded");
   
     const outputData = await classifyImage(image_element, model);
-    console.log("Prediction made.");
+    console.log("Prediction made");
   
     // Clean up
     model.dispose();
@@ -91,7 +99,7 @@ async function handleFileUpload(event) {
             prediction_div.textContent = "Predicting authenticity...";
 
 
-            image_div.appendChild(resized_image);
+            image_div.appendChild(image_element);
 
             await loadModelAndClassify(image_element);
         };
@@ -128,7 +136,7 @@ async function handleFileUploadFromMenu(file) {
         prediction_div.textContent = "Predicting authenticity...";
 
   
-        image_div.appendChild(resized_image);
+        image_div.appendChild(image_element);
   
         await loadModelAndClassify(image_element);
       };

@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel = "stylesheet" href = "popup.css">
-
+    <link rel="stylesheet" href="popup.css">
     <title>Manipulated Image Detector</title>
   </head>
   <body>
-    <h1 className = "title">Manipulated Image Detector</h1>
-    <input type = "file" id = "file-input" accept = "image/*" />
-    <div id = "uploaded_image">Waiting for image...</div>
-    <div id = "predictions"></div>
-    <script src = "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
-    <script src = "popup.js"></script>
+
+    <div class="screen">
+      <div class="title_space">
+        <h1 class = "title">Manipulated Image Detector</h1>
+      </div>
+
+      <div class = "interface">
+        <label for="file-input" class="custom-file-label">Upload Image from Local Storage</label>
+        <input type="file" id="file-input" accept="image/*" class="custom-file-input" />
+        <div id = "uploaded_image"><img src="waiting_for_image.png" alt="Waiting for Image"></div>
+        <div id = "predictions">Waiting for image...</div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+    <script src="popup.js"></script>
   </body>
 </html>
