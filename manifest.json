@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Manipulated Image Detector",
+  "author": "Nicholas Gin",
   "version": "1.0",
   "icons": {
     "16": "icons/icon16.png",
@@ -32,7 +33,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["node_modules/@tensorflow/tfjs/dist/tf.fesm.js"],
+      "resources": ["tf.fesm.js"],
       "matches": ["<all_urls>"]
     }
   ]
