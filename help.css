@@ -7,9 +7,9 @@
 body {
     height: 450px;
     width: 450px;
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    text-align: center;
     background: linear-gradient(to right, #2C3F50, #192E40);
 }
 
@@ -36,6 +36,14 @@ p {
 
 .footer
 {
+    font-size: 0.65rem;
     padding-bottom: 1rem;
     text-align: center;
+    color: #FFFFFF;
+}
+
+.secondary_click
+{
+    width: 80%;
+    border-radius: 5px;
 }

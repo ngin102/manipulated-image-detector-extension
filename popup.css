@@ -71,17 +71,17 @@ body {
 }
 
 #predictions {
-    font-size: 1rem;
+    font-size: 1.15rem;
     font-weight: bold;
     text-align: center;
     color: #2C3F50;
 }
 
-.custom-file-input {
+.custom_file_input {
     display: none;
 }
 
-.custom-file-label {
+.custom_file_label {
     display: inline-block;
     padding: 8px 16px;
     font-size: 1rem;
@@ -91,23 +91,31 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    margin-top: -2rem;
     margin-bottom: 0.5rem;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     transition: background-color 0.3s ease;
 }
 
-.custom-file-label:hover {
+.custom_file_label:hover {
     background-color: #192E40;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
 }
 
-.custom-file-input:focus {
+.custom_file_input:focus {
     outline: none;
 }
 
-.custom-file-input::file-selector-button {
+.custom_file_input::file-selector-button {
     display: none;
 }
+
+.footer {
+    margin-top: 1.62rem;
+    padding-bottom: 0.3rem;
+    text-align: center;
+    font-size: 0.5rem;
+    color: #2C3F50;
+}
+

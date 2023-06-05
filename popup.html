@@ -5,20 +5,23 @@
     <title>Manipulated Image Detector</title>
   </head>
   <body>
-    <div class="screen">
-      <div class="title_space">
-        <h1 class="title">Manipulated Image Detector</h1>
+    <div class = "screen">
+      <div class = "title_space">
+        <h1 class = "title">Manipulated Image Detector</h1>
       </div>
 
-      <div class="interface">
-        <label for="file-input" class="custom-file-label">Upload Image from Local Storage</label>
-        <input type="file" id="file-input" accept="image/*" class="custom-file-input" />
-        <div id="uploaded_image"><img src="waiting_for_image.png" alt="Waiting for Image"></div>
-        <div id="predictions">Waiting for image...</div>
+      <div class = "interface">
+        <label for = "file_input" class = "custom_file_label">Upload Image from Local Storage</label>
+        <input type = "file" id = "file_input" accept = "image/*" class = "custom_file_input" />
+        <div id = "uploaded_image"><img src = "icons/waiting_for_image.png" alt = "Waiting for Image"></div>
+        <div id = "predictions">Waiting for image...</div>
+
+
+        <p class = "footer">&#169 2023 Nicholas Gin</p>
       </div>
     </div>
 
-    <script src="node_modules/@tensorflow/tfjs/dist/tf.fesm.js"></script>
-    <script src="popup.js" type="module"></script>
+    <script src = "node_modules/@tensorflow/tfjs/dist/tf.fesm.js"></script>
+    <script src = "popup.js" type="module"></script>
   </body>
 </html>

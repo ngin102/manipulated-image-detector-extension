@@ -1,5 +1,4 @@
-// Preprocesses an image before it is given to the model to ensure consistency
-// across all images that the model is learning off of.
+// Preprocesses an image before it is given to the model.
 function preprocessImage(image_element) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -34,7 +33,8 @@ function preprocessImage(image_element) {
   return image_buffer;
 }
 
-async function classifyImage(imageElement, model) {
+// Predict the authenticity of an image.
+async function predictImage(imageElement, model) {
   const input_buffer = preprocessImage(imageElement);
   const input_tensor = tf.tensor4d(input_buffer, [1, 256, 256, 3]);
   const output_tensor = model.predict(input_tensor);
@@ -46,31 +46,29 @@ async function classifyImage(imageElement, model) {
   
   const predictionDiv = document.getElementById("predictions");
 
-  if (rescaled_values[0] < 50)
-  {
-      predictionDiv.textContent = "Prediction: Likely Manipulated";
-  }
-  else
-  {
-      predictionDiv.textContent = "Prediction: Likely Authentic";
-  }
+  if (rescaled_values[0] < 50) {
+    predictionDiv.innerHTML = "Prediction: <span style='color: #E84C3D'>Likely Manipulated</span>";
+  } 
+  else {
+    predictionDiv.innerHTML = "Prediction: <span style='color: #28A428'>Likely Authentic</span>";
+  }  
 
   return rescaled_values;
 }
 
-// Load the JSON model and perform classification
-async function loadModelAndClassify(image_element) {
-  const model = await tf.loadLayersModel("model.json");
+// Load the JSON model and predict the authenticity of the image.
+async function loadModelAndPredict(image_element) {
+  const model = await tf.loadLayersModel("tfjs_model/model.json");
   console.log("Model loaded");
 
-  const outputData = await classifyImage(image_element, model);
+  await predictImage(image_element, model);
   console.log("Prediction made");
 
-  // Clean up
+  // Clean up.
   model.dispose();
 }
 
-// Function to handle file upload
+// Function to handle file upload (from the "Upload Image from Local Storage" button).
 async function handleFileUpload(event) {
   const file = event.target.files[0];
 
@@ -80,7 +78,7 @@ async function handleFileUpload(event) {
       const image_element = document.createElement("img");
       image_element.src = image_url;
 
-      // Wait for image to load before making predictions
+      // Wait for image to load before making predictions,
       image_element.onload = async function() {
           const canvas = document.createElement("canvas");
           canvas.width = 256;
@@ -101,7 +99,7 @@ async function handleFileUpload(event) {
 
           image_div.appendChild(image_element);
 
-          await loadModelAndClassify(image_element);
+          await loadModelAndPredict(image_element);
       };
 
       URL.revokeObjectURL(image_url);
@@ -110,6 +108,7 @@ async function handleFileUpload(event) {
   reader.readAsDataURL(file);
 }
 
+// Function to handle file upload (from selecting the option from the Context Menu).
 async function handleFileUploadFromMenu(file) {
   const reader = new FileReader();
   reader.onload = async function(e) {
@@ -117,7 +116,7 @@ async function handleFileUploadFromMenu(file) {
     const image_element = document.createElement("img");
     image_element.src = image_url;
 
-    // Wait for image to load before making predictions
+    // Wait for image to load before making predictions.
     image_element.onload = async function() {
       const canvas = document.createElement("canvas");
       canvas.width = 256;
@@ -131,14 +130,12 @@ async function handleFileUploadFromMenu(file) {
       const image_div = document.getElementById("uploaded_image");
       image_div.innerHTML = "";
 
-
       const prediction_div = document.getElementById("predictions");
       prediction_div.textContent = "Predicting authenticity...";
 
-
       image_div.appendChild(image_element);
 
-      await loadModelAndClassify(image_element);
+      await loadModelAndPredict(image_element);
     };
 
     URL.revokeObjectURL(image_url);
@@ -147,18 +144,15 @@ async function handleFileUploadFromMenu(file) {
   reader.readAsDataURL(file);
 }
 
-
-// Call handleFileUpload function when an image file is selected.
-const fileInput = document.getElementById("file-input");
+// Call handleFileUpload function when an image file is selected from local storage.
+const fileInput = document.getElementById("file_input");
 fileInput.addEventListener("change", handleFileUpload);
 
-// Add event listener for message event
+// Listen for a message from background.js.
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.action === "uploadImage") {
     const imageURL = request.imageURL;
     console.log("Message received in background script:", imageURL);
-
-    // Process the message and perform the desired actions
     fetch(imageURL)
       .then(response => response.blob())
       .then(blob => {
@@ -166,17 +160,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
         handleFileUploadFromMenu(file);
 
-        // Send a response if needed
         sendResponse("Message processed successfully");
       })
       .catch(error => {
         console.error("Error extracting image file:", error);
-        // Send a response if needed
         sendResponse("Error processing message: " + error.message);
       });
 
-    // Return true to indicate that the response will be sent asynchronously
     return true;
+  }
+
+  else if (request.action == "keepAlive") {
+    return;
   }
 });
 
