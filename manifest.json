@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Manipulated Image Detector",
   "author": "Nicholas Gin",
-  "version": "1.0",
+  "version": "1.0.1",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
