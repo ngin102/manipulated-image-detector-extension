@@ -10,6 +10,7 @@
   "background": {
     "service_worker": "background.js"
   },
+  "description": "Predict whether an image is authentic or if it has been manipulated.",
   "permissions": [
     "activeTab",
     "contextMenus",
