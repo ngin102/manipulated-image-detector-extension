@@ -69,7 +69,7 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
       intervalId = setInterval(function () {
         chrome.runtime.sendMessage({ action: "keepAlive" });
         console.log("Keep-alive message sent to popup window");
-      }, 3000);
+      }, 25000);
     }
   }
 });
