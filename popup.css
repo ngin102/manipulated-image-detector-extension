@@ -111,9 +111,15 @@ body {
     display: none;
 }
 
+.notif {
+    margin-top: 0.3rem;
+    text-align: center;
+    font-size: 0.6rem;
+    color: #2C3F50;
+}
+
 .footer {
-    margin-top: 1.62rem;
-    padding-bottom: 0.3rem;
+    margin-top: 0.3rem;
     text-align: center;
     font-size: 0.5rem;
     color: #2C3F50;

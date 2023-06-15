@@ -38,7 +38,7 @@ function createPopupWindow(clickData) {
     url: "popup.html",
     type: "popup",
     width: 460,
-    height: 460
+    height: 480
   }, function (window) {
     // Store the window ID, so we know that it has been created and it is opened.
     popupWindowId = window.id;
@@ -66,6 +66,11 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
       createPopupWindow(clickData);
       intervalId = true;
 
+      // Send a keep-alive message to the popup window in intervals of 25 seconds (as long as the user has not closed the window).
+      // This will ensure that the window will consistently listen for uploadImage messages until the window is closed by the user.
+      // This will prevent a new window from being created the next time the user tries to predict the authenticity of an image
+      // in the event the service worker goes inactive - we just want to refresh the currently open window, unless it is closed
+      // by the user.
       intervalId = setInterval(function () {
         chrome.runtime.sendMessage({ action: "keepAlive" });
         console.log("Keep-alive message sent to popup window");
@@ -77,7 +82,7 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
 // Listen for the popup window to close
 chrome.windows.onRemoved.addListener(function (windowId) {
   if (windowId === popupWindowId) {
-    clearInterval(intervalId);
+    clearInterval(intervalId); // Stop sending keep-alive messages since the popup window is closed.
     console.log("Popup window closed. Resetting intervalId:", intervalId);
 
     popupWindowId = null;

@@ -1,20 +1,20 @@
 # Manipulated Image Detector Extension
 
-🔍🖼️  Unleash the power of the Manipulated Image Detector and unravel the truth behind the pixels!  🔎✨
+[Click to see the Chrome Web Store listing for this extension.](https://chrome.google.com/webstore/detail/manipulated-image-detecto/ieooocebljbioibcclgcmkpfpjbcaijg)
 
-Unveiling the Manipulated Image Detector, the Chrome extension that uncovers the secrets hidden within the images you encounter online! 🕵️‍♀️🌐
+Predict if an image on a webpage is authentic or if it has been manipulated using a model built for this purpose.
+Right from your Chrome browser, predict if an image on a webpage is authentic or if it has been manipulated using a model built for this purpose!
 
-Have you ever wondered if the images you see have been manipulated or edited? With the Manipulated Image Detector, you can put your curiosity to rest! This extension harnesses the power of an on-device model, meticulously trained to spot any signs of manipulation or editing in an image. 🔬💡
+The Manipulated Image Detector is a Chrome extension that utilizes an on-device model specifically designed to detect any potential manipulation or editing in an image. This model is loaded using TensorFlow.js scripts.
 
-How to use this extension:
-1. Simple Installation: Load the extension into your Chrome browser. 💻
-2. Webpage Inspection: Visit any webpage that catches your attention. 🌐
-3. Image Authenticity Check: Just secondary-click (right-click) on the image you wish to examine (standard image formats like .jpg or .png) and choose "Predict Image Authenticity" from the Context Menu. 🖱️✨
+How to Use:
+To predict the authenticity of an image from a webpage using the model, simply secondary-click (right-click) on the desired image and choose "Predict Image Authenticity" from the Context Menu. This action will activate a pop-up window displaying the "Manipulated Image Detector." The image will be promptly submitted to the detector, which will then provide a prediction regarding its authenticity. Once you launch this window, it will receive automated notifications to stay active every 25 seconds (until you close it), so it can update in real-time when a new image is uploaded to the detector.
 
-Get ready for the magic to unfold! The Manipulated Image Detector pop-up will spring to life, analyzing your selected image in a flash. 📸🔍
+How Does It Work:
+This model is a custom convolutional neural network that was trained on 3938 authentic images and 3938 manipulated images from the CASIA2 dataset. It predicts the authenticity of an image using what it learned to be distinguishing variables between manipulated and authentic images throughout the training process.
 
-Remember, every detection made by the intelligent model is a prediction. 🧠💡
+Note that this model is not foolproof. It achieved an F1 score of approximately 87.3% when tested on another subset of images it was not trained on from the CASIA2 dataset. While it makes informed predictions based on evidence and what it has learned, it is important to understand that the model's predictions are still predictions! It should be used as a tool, not as fact.
 
 Click on the image below for a video demo of the extension:
 
-[![Manipulated Image Detector Demo](https://img.youtube.com/vi/wA9pJnUlyEY/0.jpg)](https://youtu.be/wA9pJnUlyEY "Manipulated Image Detector Demo")
+[![Manipulated Image Detector Demo](https://img.youtube.com/vi/ivoX-HomIR4/0.jpg)](https://youtu.be/ivoX-HomIR4 "Manipulated Image Detector Demo")

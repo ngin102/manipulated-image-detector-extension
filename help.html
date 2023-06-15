@@ -12,35 +12,29 @@
       </p>
       <img src = "icons/secondary_click.png" class = "secondary_click" alt = "Secondary Click Context Menu Option">
       <p>
-        This action will trigger a pop-up displaying the "Manipulated Image Detector." The image will be promptly submitted to the detector, which will then provide a prediction 
+        This action will activate a pop-up window displaying the "Manipulated Image Detector." The image will be promptly submitted to the detector, which will then provide a prediction 
         regarding its authenticity.
       </p>
-      <p><a href="popup.html" target="_blank">Click here to open the "Manipulated Image Detector"<br>as a new tab of your browser.</a></p>
+      <p>
+        Once you launch this window, it will receive automated notifications to stay active every 25 seconds (until you close it), so it can update in real-time when a new image is uploaded to the detector.
+      </p>
     </div>
 
     <div class="container">
       <h1>How Does the Detector Work?</h1>
       <p>
-        This Chrome extension serves as a companion to the <a href = "https://github.com/ngin102/manipulated-image-detector-and-recommender" target="_blank"> "Manipulated Image Detector and Recommender"<br>Android application</a>.
+        This Chrome extension utilizes an on-device model specifically designed to detect any potential manipulation or editing in an image. This model is loaded using TensorFlow.js scripts.
       </p>
       <p>
-        It utilizes an on-device model specifically designed to detect any potential manipulation or editing in an image.<br>This model is a custom convolutional neural network that underwent training on a subset of 3938 authentic images and 3938 manipulated images from the <a href="https://www.kaggle.com/datasets/sophatvathana/casia-dataset" target="_blank"> CASIA2 dataset</a>.
+        This model is a custom convolutional neural network that was trained on 3938 authentic images and 3938 manipulated images from the CASIA2 dataset.
       </p>
       <p>
-        The fully-trained model achieved an F1 score of approximately 87.3% when tested on a separate<br>subset of images from the CASIA2 dataset, which it had not been explicitly trained on.
+        The model predicts the authenticity of an image using what it learned to be distinguishing variables<br>between manipulated and authentic images throughout the training process.<br>
       </p>
       <p>
-        Remember that all detections made by<br>the model are, in fact, predictions.
-      </p>
-    </div>
-
-    <div class="container">
-      <h1>More</h1>
-      <p>
-        Have suggestions to improve this extension?<br><a href="mailto:nicholas.gin9@gmail.com">Click here to send feedback.</a>
-      </p>
-      <p>
-        <a href = "https://github.com/ngin102/manipulated-image-detector-and-recommender">Click here for further details regarding the model utilized in this extension and the Android application.</a>
+        Note that this model is not foolproof. It achieved an F1 score of approximately 87.3% when tested on another subset of images it was not trained on from the CASIA2 dataset.
+        While it makes informed predictions based on evidence and what it has learned, it is important to understand that the model's predictions are still predictions!
+        It should be used as a tool, not as fact.
       </p>
     </div>
 
